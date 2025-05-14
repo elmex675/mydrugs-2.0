@@ -1,0 +1,2080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyDrugs - by factornalmex (CEO)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap');
+
+        :root {
+            --primary-color: #0c0c14;
+            --secondary-color: #121225;
+            --accent1-color: #00ffcc;
+            --accent2-color: #ff3e78;
+            --accent3-color: #7000ff;
+            --neutral1-color: #1f1f3a;
+            --neutral2-color: #2a2a4a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-color);
+            color: white;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 20% 35%, rgba(112, 0, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 10%, rgba(0, 255, 204, 0.1) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .font-accent {
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        header {
+            background-color: rgba(31, 31, 58, 0.25);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent1-color);
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+        }
+
+        .ceo-text {
+            font-size: 0.85rem;
+        }
+
+        .ceo-name {
+            color: var(--accent1-color);
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent1-color);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent1-color);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cart-icon {
+            position: relative;
+            margin-left: 1rem;
+            cursor: pointer;
+        }
+
+        .cart-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+            transition: fill 0.3s;
+        }
+
+        .cart-icon:hover svg {
+            fill: var(--accent1-color);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--accent2-color);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero {
+            margin-top: 80px;
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--accent1-color), var(--accent3-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .btn {
+            background-color: transparent;
+            color: white;
+            border: 2px solid var(--accent1-color);
+            padding: 0.75rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, var(--accent1-color), var(--accent3-color));
+            z-index: -1;
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+        }
+
+        .btn:hover::before {
+            transform: translateX(0);
+        }
+
+        .featured {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .section-title p {
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background-color: rgba(31, 31, 58, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .product-image {
+            height: 200px;
+            width: 100%;
+            background-color: var(--neutral2-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .product-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, rgba(12, 12, 20, 0.9), transparent);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .product-desc {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+        }
+
+        .product-price {
+            font-weight: 600;
+            color: var(--accent1-color);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .product-rating .stars {
+            color: #FFD700;
+            margin-right: 0.5rem;
+        }
+
+        .categories {
+            padding: 4rem 0;
+            background-color: rgba(31, 31, 58, 0.2);
+        }
+
+        .category-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .category-card {
+            background-color: rgba(31, 31, 58, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .category-card:hover {
+            transform: scale(1.05);
+        }
+
+        .category-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent1-color);
+        }
+
+        .category-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .category-desc {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .testimonials {
+            padding: 4rem 0;
+        }
+
+        .testimonial-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background-color: rgba(31, 31, 58, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: transform 0.3s;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--neutral2-color);
+            margin-right: 1rem;
+            overflow: hidden;
+        }
+
+        .testimonial-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .testimonial-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .testimonial-text {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.7;
+            position: relative;
+        }
+
+        .testimonial-text::before {
+            content: '"';
+            font-size: 3rem;
+            color: var(--accent1-color);
+            opacity: 0.3;
+            position: absolute;
+            top: -1.5rem;
+            left: -0.5rem;
+        }
+
+        .faq {
+            padding: 4rem 0;
+            background-color: rgba(31, 31, 58, 0.2);
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background-color: rgba(31, 31, 58, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background-color 0.3s;
+        }
+
+        .faq-question:hover {
+            background-color: rgba(31, 31, 58, 0.6);
+        }
+
+        .faq-question svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-answer-inner {
+            padding-bottom: 1.5rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .faq-item.active .faq-question svg {
+            transform: rotate(180deg);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 0 1.5rem 1.5rem;
+        }
+
+        footer {
+            background-color: var(--neutral1-color);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-col h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col ul a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul a:hover {
+            color: var(--accent1-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .social-icon:hover {
+            background-color: var(--accent1-color);
+        }
+
+        .disclaimer {
+            background-color: rgba(255, 62, 120, 0.1);
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 2rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        /* Modal styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            max-width: 700px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: modalAnimation 0.4s;
+            position: relative;
+        }
+
+        @keyframes modalAnimation {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .modal-close:hover {
+            color: var(--accent1-color);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .cart-items {
+            margin-bottom: 2rem;
+        }
+
+        .cart-item {
+            display: flex;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cart-item-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-right: 1.5rem;
+            background-color: var(--neutral2-color);
+        }
+
+        .cart-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: white;
+        }
+
+        .cart-item-price {
+            font-size: 1rem;
+            color: var(--accent1-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quantity-btn:hover {
+            background-color: var(--accent1-color);
+        }
+
+        .quantity-input {
+            width: 40px;
+            height: 30px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            text-align: center;
+            margin: 0 0.5rem;
+            border-radius: 5px;
+        }
+
+        .cart-item-remove {
+            color: var(--accent2-color);
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-left: 1rem;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .cart-item-remove:hover {
+            color: white;
+        }
+
+        .cart-summary {
+            background-color: rgba(31, 31, 58, 0.4);
+            border-radius: 5px;
+            padding: 1.5rem;
+        }
+
+        .cart-summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .cart-summary-row.total {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: white;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .checkout-btn {
+            background: linear-gradient(to right, var(--accent1-color), var(--accent3-color));
+            color: white;
+            border: none;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 5px;
+            width: 100%;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .checkout-btn:hover {
+            opacity: 0.9;
+        }
+
+        .cart-empty {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .cart-empty svg {
+            width: 80px;
+            height: 80px;
+            color: rgba(255, 255, 255, 0.3);
+            margin-bottom: 1rem;
+        }
+
+        .cart-empty h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .cart-empty p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--accent1-color);
+            color: var(--primary-color);
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 3000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hamburger menu for mobile */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: white;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        @keyframes glow {
+            0% { 
+                text-shadow: 0 0 5px rgba(0, 255, 204, 0.7), 0 0 10px rgba(0, 255, 204, 0.5);
+            }
+            100% { 
+                text-shadow: 0 0 10px rgba(0, 255, 204, 0.9), 0 0 20px rgba(0, 255, 204, 0.7), 0 0 30px rgba(0, 255, 204, 0.5);
+            }
+        }
+
+        /* Page styles */
+        .page {
+            display: none;
+            padding-top: 80px; /* Space for fixed header */
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page-header {
+            background-color: var(--neutral1-color);
+            padding: 4rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--accent1-color), var(--accent3-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .all-products {
+            padding: 2rem 0 4rem;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .about-image {
+            height: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .about-text h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent1-color);
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .about-text .lead {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .founder-info {
+            background-color: rgba(31, 31, 58, 0.4);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .founder-info h3 {
+            color: var(--accent1-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .founder-info .title {
+            color: rgba(255, 255, 255, 0.7);
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .disclaimer-box {
+            background-color: rgba(255, 62, 120, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .disclaimer-box h3 {
+            color: var(--accent2-color);
+            margin-bottom: 1rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-form h2,
+        .contact-info h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent1-color);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: white;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent1-color);
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .info-item svg {
+            margin-right: 1rem;
+            color: var(--accent1-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .social-link:hover {
+            background-color: var(--accent1-color);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+                z-index: 1001;
+            }
+
+            .menu-toggle.active span:nth-child(1) {
+                transform: translateY(9px) rotate(45deg);
+            }
+
+            .menu-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.active span:nth-child(3) {
+                transform: translateY(-9px) rotate(-45deg);
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: 0;
+                height: 100vh;
+                width: 70%;
+                background-color: var(--secondary-color);
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-start;
+                padding: 2rem;
+                transform: translateX(100%);
+                transition: transform 0.3s;
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
+            }
+
+            .nav-links.active {
+                transform: translateX(0);
+            }
+
+            .nav-links a {
+                margin: 1.5rem 0;
+                font-size: 1.2rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .products, .category-cards, .testimonial-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .cart-item {
+                flex-direction: column;
+            }
+
+            .cart-item-image {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+            
+            .about-grid, .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-image {
+                height: 250px;
+                margin-bottom: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <span class="logo-text">MyDrugs</span>
+                    <span class="ceo-text">by <span class="ceo-name">factornalmex</span> CEO</span>
+                </div>
+
+                <div class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <div class="nav-links" id="navLinks">
+                    <a href="#" data-page="home" class="nav-link active">Home</a>
+                    <a href="#" data-page="products" class="nav-link">Products</a>
+                    <a href="#" data-page="about" class="nav-link">Our Story</a>
+                    <a href="#" data-page="faq" class="nav-link">FAQ</a>
+                    <a href="#" data-page="contact" class="nav-link">Contact</a>
+                    <div class="cart-icon" id="cartIcon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M4.5 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM14.25 8.625a3.375 3.375 0 116.75 0 3.375 3.375 0 01-6.75 0zM1.5 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM17.25 19.128l-.001.144a2.25 2.25 0 01-.233.96 10.088 10.088 0 005.06-1.01.75.75 0 00.42-.643 4.875 4.875 0 00-6.957-4.611 8.586 8.586 0 011.71 5.157v.003z" />
+                        </svg>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div id="content">
+        <!-- Home Page -->
+        <div id="page-home" class="page active">
+            <section class="hero">
+                <div class="container">
+                    <h1>Experience Premium Quality</h1>
+                    <p>A fictional marketplace inspired by the Netflix series "How to Sell Drugs Online (Fast)". This is a creative project with no real products.</p>
+                    <button class="btn" id="exploreBtn">Explore Products</button>
+                </div>
+            </section>
+
+            <section class="featured">
+                <div class="container">
+                    <div class="section-title">
+                        <h2>Featured Products</h2>
+                        <p>Our most popular fictional products with premium quality and unique experiences.</p>
+                    </div>
+                    <div class="products" id="featuredProducts">
+                        <!-- Products will be dynamically loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <section class="categories">
+                <div class="container">
+                    <div class="section-title">
+                        <h2>Product Categories</h2>
+                        <p>Browse our fictional products by category to find what you're looking for.</p>
+                    </div>
+                    <div class="category-cards" id="categories">
+                        <!-- Categories will be dynamically loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <section class="testimonials">
+                <div class="container">
+                    <div class="section-title">
+                        <h2>What Our Customers Say</h2>
+                        <p>Read testimonials from our satisfied fictional customers.</p>
+                    </div>
+                    <div class="testimonial-cards" id="testimonials">
+                        <!-- Testimonials will be dynamically loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <section class="faq">
+                <div class="container">
+                    <div class="section-title">
+                        <h2>Frequently Asked Questions</h2>
+                        <p>Find answers to the most common questions about our fictional products.</p>
+                    </div>
+                    <div class="faq-list" id="faqList">
+                        <!-- FAQs will be dynamically loaded here -->
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Products Page -->
+        <div id="page-products" class="page">
+            <section class="page-header">
+                <div class="container">
+                    <h1>Our Products</h1>
+                    <p>Browse our complete catalog of fictional products.</p>
+                </div>
+            </section>
+            <section class="all-products">
+                <div class="container">
+                    <div class="products" id="allProducts">
+                        <!-- All products will be loaded here -->
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- About Us Page -->
+        <div id="page-about" class="page">
+            <section class="page-header">
+                <div class="container">
+                    <h1>Our Story</h1>
+                    <p>Learn about MyDrugs and our mission.</p>
+                </div>
+            </section>
+            <section class="about-content">
+                <div class="container">
+                    <div class="about-grid">
+                        <div class="about-image">
+                            <div style="background:linear-gradient(135deg, var(--accent3-color), var(--accent1-color));height:100%;border-radius:10px;display:flex;align-items:center;justify-content:center;">
+                                <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="100" cy="100" r="80" fill="rgba(255,255,255,0.1)" />
+                                    <text x="100" y="90" font-family="Rajdhani, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="white">MyDrugs</text>
+                                    <text x="100" y="120" font-family="Inter, sans-serif" font-size="12" text-anchor="middle" fill="white">by factornalmex</text>
+                                    <text x="100" y="140" font-family="Inter, sans-serif" font-size="10" text-anchor="middle" fill="white">CEO</text>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="about-text">
+                            <h2>The MyDrugs Vision</h2>
+                            <p class="lead">Founded by factornalmex in 2025, MyDrugs is a fictional e-commerce platform inspired by the Netflix series "How to Sell Drugs Online (Fast)".</p>
+                            <p>Our vision was to create a striking digital experience that showcases modern web design principles while paying homage to the unique aesthetic of the show. This fictional marketplace serves as a creative project with absolutely no real products or services offered.</p>
+                            <p>With a focus on sleek, glass-morphism UI elements, neon accents, and a color palette featuring teals, purples, and pinks, we've designed an immersive user experience that feels both futuristic and nostalgic.</p>
+                            <p>The MyDrugs name, branding, and product listings are entirely fictional and are used purely for creative and educational purposes.</p>
+                            <div class="founder-info">
+                                <h3>David</h3>
+                                <p class="title">Founder & CEO</p>
+                                <p>"I wanted to create something that pushes the boundaries of web design while serving as a portfolio piece. MyDrugs represents my vision for how digital experiences can be both beautiful and functional."</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="disclaimer-box">
+                        <h3>Important Disclaimer</h3>
+                        <p>MyDrugs is a fictional website created for portfolio and educational purposes only. We do not sell or advocate for the sale of any drugs or illegal substances. All products shown are fictional and cannot be purchased. This is a creative exercise inspired by a TV show.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- FAQ Page -->
+        <div id="page-faq" class="page">
+            <section class="page-header">
+                <div class="container">
+                    <h1>Frequently Asked Questions</h1>
+                    <p>Find answers to your questions about our fictional marketplace.</p>
+                </div>
+            </section>
+            <section class="faq-content">
+                <div class="container">
+                    <div class="faq-list" id="allFaqList">
+                        <!-- All FAQs will be loaded here -->
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Contact Page -->
+        <div id="page-contact" class="page">
+            <section class="page-header">
+                <div class="container">
+                    <h1>Contact Us</h1>
+                    <p>Get in touch with our team. (Note: This is a fictional contact page)</p>
+                </div>
+            </section>
+            <section class="contact-content">
+                <div class="container">
+                    <div class="contact-grid">
+                        <div class="contact-form">
+                            <h2>Send us a message</h2>
+                            <form id="contactForm" onsubmit="event.preventDefault(); showToast('Message sent! (This is a fictional form)');">
+                                <div class="form-group">
+                                    <label for="name">Your Name</label>
+                                    <input type="text" id="name" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" name="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="subject">Subject</label>
+                                    <input type="text" id="subject" name="subject" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="message">Message</label>
+                                    <textarea id="message" name="message" rows="5" required></textarea>
+                                </div>
+                                <button type="submit" class="btn">Send Message</button>
+                            </form>
+                        </div>
+                        <div class="contact-info">
+                            <h2>Our Info</h2>
+                            <p>This is a fictional contact page. No real contact information is provided as MyDrugs is a fictional project.</p>
+                            <div class="info-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                </svg>
+                                <span>(123) 456-7890 (Fictional)</span>
+                            </div>
+                            <div class="info-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                                <span>info@mydrugs-fictional.com (Fictional)</span>
+                            </div>
+                            <div class="info-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                                <span>123 Fictional St, Imaginationland (Fictional)</span>
+                            </div>
+                            <div class="social-links">
+                                <a href="#" class="social-link">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                    </svg>
+                                </a>
+                                <a href="#" class="social-link">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                                    </svg>
+                                </a>
+                                <a href="#" class="social-link">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>MyDrugs</h3>
+                    <p>A fictional marketplace inspired by the Netflix series "How to Sell Drugs Online (Fast)". This is a creative project with no real products.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#" data-page="home">Home</a></li>
+                        <li><a href="#" data-page="products">Products</a></li>
+                        <li><a href="#" data-page="about">Our Story</a></li>
+                        <li><a href="#" data-page="faq">FAQ</a></li>
+                        <li><a href="#" data-page="contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#" data-page="disclaimer">Disclaimer</a></li>
+                        <li><a href="#" data-page="privacy">Privacy Policy</a></li>
+                        <li><a href="#" data-page="terms">Terms of Service</a></li>
+                        <li><a href="#" data-page="cookies">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Newsletter</h3>
+                    <p>Stay updated with our fictional launches and announcements.</p>
+                    <form onsubmit="event.preventDefault(); showToast('Thanks for subscribing!');">
+                        <div style="display:flex;margin:1rem 0;">
+                            <input type="email" placeholder="Your email" required
+                            style="flex:1;background:rgba(255,255,255,0.1);border:none;padding:0.75rem;border-radius:5px 0 0 5px;color:white;">
+                            <button type="submit" style="background:var(--accent1-color);border:none;padding:0.75rem;border-radius:0 5px 5px 0;cursor:pointer;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M24 0l-6 22-8.129-7.239 7.802-8.234-10.458 7.227-7.215-1.754 24-12zm-15 16.668v7.332l3.258-4.431-3.258-2.901z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
+                    <p style="font-size:0.8rem;opacity:0.7;">We'll never share your email. This form is non-functional.</p>
+                </div>
+            </div>
+            <div class="disclaimer">
+                <strong>DISCLAIMER:</strong> This is a fictional creative project inspired by a TV show. No real products or services are offered. This website was created for educational and portfolio purposes only.
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MyDrugs by factornalmex (CEO). A fictional project. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Your Cart</h2>
+                <button class="modal-close" id="closeCartModal">&times;</button>
+            </div>
+            <div class="modal-body" id="cartModalBody">
+                <!-- Cart items will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Sample data
+        const products = [
+            {
+                id: 1,
+                name: "Blue Dream",
+                description: "A calming and uplifting fictional product with a sweet berry aroma.",
+                price: 49.99,
+                image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='10' fill='%2300C4FF'/><circle cx='50' cy='50' r='25' fill='%23005BEA'/><text x='50' y='56' font-family='Arial' font-size='10' text-anchor='middle' fill='white'>Blue Dream</text></svg>",
+                category: "Premium Collection",
+                rating: 4.9,
+                featured: true
+            },
+            {
+                id: 2,
+                name: "Purple Haze",
+                description: "A creative and energizing fictional product with earthy notes.",
+                price: 54.99,
+                image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='10' fill='%237e57c2'/><circle cx='50' cy='50' r='25' fill='%235e35b1'/><text x='50' y='56' font-family='Arial' font-size='9' text-anchor='middle' fill='white'>Purple Haze</text></svg>",
+                category: "Premium Collection",
+                rating: 4.8,
+                featured: true
+            },
+            {
+                id: 3,
+                name: "White Widow",
+                description: "A balanced fictional product with notes of pine and citrus.",
+                price: 59.99,
+                image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='10' fill='%23eceff1'/><circle cx='50' cy='50' r='25' fill='%23cfd8dc'/><text x='50' y='56' font-family='Arial' font-size='8' text-anchor='middle' fill='%23455a64'>White Widow</text></svg>",
+                category: "Premium Collection",
+                rating: 4.7,
+                featured: true
+            },
+            {
+                id: 4,
+                name: "Northern Lights",
+                description: "A relaxing fictional product with a sweet and spicy aroma.",
+                price: 44.99,
+                image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='10' fill='%23673ab7'/><path d='M50,20 L55,40 L75,40 L60,50 L65,70 L50,60 L35,70 L40,50 L25,40 L45,40 Z' fill='%234a148c'/><text x='50' y='85' font-family='Arial' font-size='8' text-anchor='middle' fill='white'>Northern Lights</text></svg>",
+                category: "Evening Relaxers",
+                rating: 4.6,
+                featured: false
+            },
+            {
+                id: 5,
+                name: "Sour Diesel",
+                description: "An energizing fictional product with a pungent, diesel-like aroma.",
+                price: 39.99,
+                image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='10' fill='%23ffc107'/><path d='M35,40 L65,40 L65,60 C65,65 55,70 50,70 C45,70 35,65 35,60 Z' fill='%23ff9800'/><text x='50' y='55' font-family='Arial' font-size='8' text-anchor='middle' fill='%23333'>Sour Diesel</text></svg>",
+                category: "Energy Boosters",
+                rating: 4.5,
+                featured: false
+            },
+            {
+                id: 6,
+                name: "Green Crack",
+                description: "A highly energizing fictional product with a tangy, fruity flavor.",
+                price: 47.99,
+                image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='10' fill='%234caf50'/><polygon points='50,30 70,45 70,70 30,70 30,45' fill='%23388e3c'/><text x='50' y='60' font-family='Arial' font-size='8' text-anchor='middle' fill='white'>Green Crack</text></svg>",
+                category: "Energy Boosters",
+                rating: 4.4,
+                featured: false
+            },
+            {
+                id: 7,
+                name: "Beginner's Blend",
+                description: "A gentle introduction for newcomers to our fictional products.",
+                price: 29.99,
+                image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='10' fill='%239ccc65'/><circle cx='40' cy='40' r='15' fill='%238bc34a'/><circle cx='60' cy='60' r='15' fill='%23aed581'/><text x='50' y='85' font-family='Arial' font-size='8' text-anchor='middle' fill='%23333'>Beginner's Blend</text></svg>",
+                category: "Starter Kits",
+                rating: 4.3,
+                featured: false
+            },
+            {
+                id: 8,
+                name: "Starter Pack",
+                description: "Everything a beginner needs to enjoy our fictional products.",
+                price: 34.99,
+                image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='10' fill='%2381c784'/><rect x='30' y='30' width='40' height='40' rx='5' fill='%2369f0ae'/><text x='50' y='55' font-family='Arial' font-size='8' text-anchor='middle' fill='%23333'>Starter Pack</text></svg>",
+                category: "Starter Kits",
+                rating: 4.2,
+                featured: false
+            },
+            {
+                id: 9,
+                name: "Pink Kush",
+                description: "A premium fictional product with sweet vanilla and floral notes.",
+                price: 64.99,
+                image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='10' fill='%23f48fb1'/><path d='M35,35 Q50,20 65,35 T65,65 Q50,80 35,65 T35,35' fill='%23ec407a'/><text x='50' y='55' font-family='Arial' font-size='8' text-anchor='middle' fill='white'>Pink Kush</text></svg>",
+                category: "Premium Collection",
+                rating: 4.9,
+                featured: false
+            },
+            {
+                id: 10,
+                name: "Lemon Haze",
+                description: "A citrusy fictional product with energizing effects and sweet taste.",
+                price: 52.99,
+                image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='10' fill='%23ffeb3b'/><circle cx='50' cy='50' r='25' fill='%23fdd835'/><text x='50' y='55' font-family='Arial' font-size='8' text-anchor='middle' fill='%23333'>Lemon Haze</text></svg>",
+                category: "Energy Boosters",
+                rating: 4.7,
+                featured: false
+            },
+            {
+                id: 11,
+                name: "Grand Daddy",
+                description: "A deeply relaxing fictional product with grape and berry notes.",
+                price: 58.99,
+                image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='10' fill='%236a1b9a'/><circle cx='35' cy='35' r='10' fill='%239c27b0'/><circle cx='55' cy='45' r='10' fill='%239c27b0'/><circle cx='45' cy='65' r='10' fill='%239c27b0'/><text x='50' y='85' font-family='Arial' font-size='8' text-anchor='middle' fill='white'>Grand Daddy</text></svg>",
+                category: "Evening Relaxers",
+                rating: 4.8,
+                featured: false
+            },
+            {
+                id: 12,
+                name: "Pineapple Express",
+                description: "A tropical fictional product with sweet pineapple flavor and aroma.",
+                price: 56.99,
+                image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='10' fill='%23ffd54f'/><path d='M40,30 L60,30 L65,40 L60,50 L65,60 L60,70 L40,70 L35,60 L40,50 L35,40 Z' fill='%23ffca28'/><text x='50' y='85' font-family='Arial' font-size='7' text-anchor='middle' fill='%23333'>Pineapple Express</text></svg>",
+                category: "Premium Collection",
+                rating: 4.9,
+                featured: false
+            }
+        ];
+
+        const categories = [
+            {
+                id: 1,
+                name: "Premium Collection",
+                description: "Our highest quality fictional products for the connoisseur.",
+                icon: "✨"
+            },
+            {
+                id: 2,
+                name: "Starter Kits",
+                description: "Perfect fictional products for beginners at great value.",
+                icon: "🌱"
+            },
+            {
+                id: 3,
+                name: "Energy Boosters",
+                description: "Fictional products designed to uplift and energize.",
+                icon: "⚡"
+            },
+            {
+                id: 4,
+                name: "Evening Relaxers",
+                description: "Fictional products for unwinding after a long day.",
+                icon: "🌙"
+            }
+        ];
+
+        const testimonials = [
+            {
+                id: 1,
+                name: "Sophia K.",
+                avatarUrl: "https://randomuser.me/api/portraits/women/1.jpg",
+                text: "I've tried many similar fictional products, but MyDrugs offers exceptional quality and service. The website is easy to navigate, and delivery is always prompt."
+            },
+            {
+                id: 2,
+                name: "James M.",
+                avatarUrl: "https://randomuser.me/api/portraits/men/2.jpg",
+                text: "The quality of these fictional products is outstanding. I particularly enjoy the Blue Dream - it's exactly as described. Will definitely be a returning customer!"
+            },
+            {
+                id: 3,
+                name: "Emma P.",
+                avatarUrl: "https://randomuser.me/api/portraits/women/3.jpg",
+                text: "As a first-time buyer, I was impressed by how user-friendly this fictional website is. The products are high quality, and the customer service team is very helpful."
+            }
+        ];
+
+        const faqs = [
+            {
+                id: 1,
+                question: "Is this a real store?",
+                answer: "No, MyDrugs is a fictional website inspired by the Netflix series 'How to Sell Drugs Online (Fast)'. We do not sell any real products or services. This is purely a creative project for educational and portfolio purposes."
+            },
+            {
+                id: 2,
+                question: "Can I actually purchase these products?",
+                answer: "No, all products shown on this website are fictional and cannot be purchased. The 'Add to Cart' and other purchase-related functions are simulated for demonstration purposes only."
+            },
+            {
+                id: 3,
+                question: "Is this website affiliated with the Netflix show?",
+                answer: "No, this website is not officially affiliated with Netflix or the show 'How to Sell Drugs Online (Fast)'. It is an independent creative project inspired by the show's concept."
+            },
+            {
+                id: 4,
+                question: "Why was this website created?",
+                answer: "This website was created as a portfolio project to demonstrate web design and development skills. It serves as a creative exercise in building an e-commerce platform with a unique theme."
+            }
+        ];
+
+        // Cart functionality
+        let cart = [];
+
+        // DOM Elements
+        const featuredProductsEl = document.getElementById('featuredProducts');
+        const categoriesEl = document.getElementById('categories');
+        const testimonialsEl = document.getElementById('testimonials');
+        const faqListEl = document.getElementById('faqList');
+        const cartIconEl = document.getElementById('cartIcon');
+        const cartModalEl = document.getElementById('cartModal');
+        const closeCartModalEl = document.getElementById('closeCartModal');
+        const cartModalBodyEl = document.getElementById('cartModalBody');
+        const cartCountEl = document.getElementById('cartCount');
+        const toastEl = document.getElementById('toast');
+        const menuToggleEl = document.getElementById('menuToggle');
+        const navLinksEl = document.getElementById('navLinks');
+        const exploreBtnEl = document.getElementById('exploreBtn');
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            loadFeaturedProducts();
+            loadCategories();
+            loadTestimonials();
+            loadFaqs();
+            setupEventListeners();
+        });
+
+        // Load featured products
+        function loadFeaturedProducts() {
+            const featuredProducts = products.filter(product => product.featured);
+            featuredProductsEl.innerHTML = '';
+            
+            featuredProducts.forEach(product => {
+                const productEl = document.createElement('div');
+                productEl.className = 'product-card';
+                productEl.innerHTML = `
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.name}" style="width:100%;height:100%;object-fit:cover;">
+                        <div class="product-overlay"></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">${product.name}</h3>
+                        <p class="product-desc">${product.description}</p>
+                        <div class="product-meta">
+                            <p class="product-price">$${product.price.toFixed(2)}</p>
+                            <div class="product-rating">
+                                <span class="stars">★★★★★</span>
+                                <span>${product.rating}</span>
+                            </div>
+                        </div>
+                        <button class="btn add-to-cart-btn" data-product-id="${product.id}">Add to Cart</button>
+                    </div>
+                `;
+                featuredProductsEl.appendChild(productEl);
+            });
+
+            // Add event listeners to the add to cart buttons
+            document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const productId = parseInt(e.currentTarget.getAttribute('data-product-id'));
+                    addToCart(productId);
+                });
+            });
+        }
+
+        // Load categories
+        function loadCategories() {
+            categoriesEl.innerHTML = '';
+            
+            categories.forEach(category => {
+                const categoryEl = document.createElement('div');
+                categoryEl.className = 'category-card';
+                categoryEl.innerHTML = `
+                    <div class="category-icon">${category.icon}</div>
+                    <h3 class="category-title">${category.name}</h3>
+                    <p class="category-desc">${category.description}</p>
+                `;
+                categoriesEl.appendChild(categoryEl);
+            });
+        }
+
+        // Load testimonials
+        function loadTestimonials() {
+            testimonialsEl.innerHTML = '';
+            
+            testimonials.forEach(testimonial => {
+                const testimonialEl = document.createElement('div');
+                testimonialEl.className = 'testimonial-card';
+                testimonialEl.innerHTML = `
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <img src="${testimonial.avatarUrl}" alt="${testimonial.name}" loading="lazy">
+                        </div>
+                        <div class="testimonial-name">${testimonial.name}</div>
+                    </div>
+                    <div class="testimonial-text">${testimonial.text}</div>
+                `;
+                testimonialsEl.appendChild(testimonialEl);
+            });
+        }
+
+        // Load FAQs
+        function loadFaqs() {
+            faqListEl.innerHTML = '';
+            
+            faqs.forEach((faq, index) => {
+                const faqEl = document.createElement('div');
+                faqEl.className = 'faq-item';
+                faqEl.dataset.faqId = faq.id;
+                faqEl.innerHTML = `
+                    <div class="faq-question">
+                        ${faq.question}
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">${faq.answer}</div>
+                    </div>
+                `;
+                faqListEl.appendChild(faqEl);
+
+                // Add event listener to toggle FAQ answers
+                const faqQuestionEl = faqEl.querySelector('.faq-question');
+                faqQuestionEl.addEventListener('click', () => {
+                    faqEl.classList.toggle('active');
+                });
+            });
+        }
+
+        // Add to cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const existingItem = cart.find(item => item.id === productId);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    ...product,
+                    quantity: 1
+                });
+            }
+
+            updateCartCount();
+            showToast(`Added ${product.name} to cart!`);
+        }
+
+        // Update cart count
+        function updateCartCount() {
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCountEl.textContent = totalItems;
+        }
+
+        // Show toast notification
+        function showToast(message) {
+            toastEl.textContent = message;
+            toastEl.classList.add('show');
+            
+            setTimeout(() => {
+                toastEl.classList.remove('show');
+            }, 3000);
+        }
+
+        // Render cart items
+        function renderCart() {
+            if (cart.length === 0) {
+                cartModalBodyEl.innerHTML = `
+                    <div class="cart-empty">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                        <h3>Your cart is empty</h3>
+                        <p>Looks like you haven't added any fictional products to your cart yet.</p>
+                        <button class="btn" id="continueShopping">Continue Shopping</button>
+                    </div>
+                `;
+                
+                // Add event listener to continue shopping button
+                const continueShoppingBtn = document.getElementById('continueShopping');
+                continueShoppingBtn.addEventListener('click', () => {
+                    cartModalEl.classList.remove('open');
+                });
+                
+                return;
+            }
+
+            // Calculate cart totals
+            const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            const shipping = subtotal > 100 ? 0 : 9.99;
+            const tax = subtotal * 0.07;
+            const total = subtotal + shipping + tax;
+
+            let cartHTML = `
+                <div class="cart-items">
+            `;
+
+            cart.forEach(item => {
+                cartHTML += `
+                    <div class="cart-item" data-product-id="${item.id}">
+                        <div class="cart-item-image">
+                            <img src="${item.image}" alt="${item.name}" style="width:100%;height:100%;object-fit:cover;">
+                        </div>
+                        <div class="cart-item-info">
+                            <h3 class="cart-item-title">${item.name}</h3>
+                            <p class="cart-item-price">$${item.price.toFixed(2)}</p>
+                            <div class="cart-item-quantity">
+                                <button class="quantity-btn decrease-quantity" data-product-id="${item.id}">-</button>
+                                <input type="number" class="quantity-input" value="${item.quantity}" min="1" max="10" readonly>
+                                <button class="quantity-btn increase-quantity" data-product-id="${item.id}">+</button>
+                                <button class="cart-item-remove" data-product-id="${item.id}">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            cartHTML += `
+                </div>
+                <div class="cart-summary">
+                    <div class="cart-summary-row">
+                        <span>Subtotal</span>
+                        <span>$${subtotal.toFixed(2)}</span>
+                    </div>
+                    <div class="cart-summary-row">
+                        <span>Shipping</span>
+                        <span>${shipping === 0 ? 'Free' : '$' + shipping.toFixed(2)}</span>
+                    </div>
+                    <div class="cart-summary-row">
+                        <span>Tax</span>
+                        <span>$${tax.toFixed(2)}</span>
+                    </div>
+                    <div class="cart-summary-row total">
+                        <span>Total</span>
+                        <span>$${total.toFixed(2)}</span>
+                    </div>
+                    <button class="checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
+                </div>
+            `;
+
+            cartModalBodyEl.innerHTML = cartHTML;
+
+            // Add event listeners to cart item buttons
+            document.querySelectorAll('.decrease-quantity').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const productId = parseInt(e.currentTarget.getAttribute('data-product-id'));
+                    decreaseQuantity(productId);
+                });
+            });
+
+            document.querySelectorAll('.increase-quantity').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const productId = parseInt(e.currentTarget.getAttribute('data-product-id'));
+                    increaseQuantity(productId);
+                });
+            });
+
+            document.querySelectorAll('.cart-item-remove').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const productId = parseInt(e.currentTarget.getAttribute('data-product-id'));
+                    removeFromCart(productId);
+                });
+            });
+
+            // Add event listener to checkout button
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            checkoutBtn.addEventListener('click', () => {
+                showToast('This is a fictional store, checkout is not available!');
+                setTimeout(() => {
+                    cartModalEl.classList.remove('open');
+                }, 3000);
+            });
+        }
+
+        // Decrease item quantity
+        function decreaseQuantity(productId) {
+            const cartItem = cart.find(item => item.id === productId);
+            if (cartItem && cartItem.quantity > 1) {
+                cartItem.quantity -= 1;
+                updateCartCount();
+                renderCart();
+            } else if (cartItem && cartItem.quantity === 1) {
+                removeFromCart(productId);
+            }
+        }
+
+        // Increase item quantity
+        function increaseQuantity(productId) {
+            const cartItem = cart.find(item => item.id === productId);
+            if (cartItem && cartItem.quantity < 10) {
+                cartItem.quantity += 1;
+                updateCartCount();
+                renderCart();
+            }
+        }
+
+        // Remove from cart
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartCount();
+            renderCart();
+        }
+
+        // Load all products
+        function loadAllProducts() {
+            const allProductsEl = document.getElementById('allProducts');
+            if (!allProductsEl) return;
+            
+            allProductsEl.innerHTML = '';
+            
+            products.forEach(product => {
+                const productEl = document.createElement('div');
+                productEl.className = 'product-card';
+                productEl.innerHTML = `
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.name}" style="width:100%;height:100%;object-fit:cover;">
+                        <div class="product-overlay"></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">${product.name}</h3>
+                        <p class="product-desc">${product.description}</p>
+                        <div class="product-meta">
+                            <p class="product-price">$${product.price.toFixed(2)}</p>
+                            <div class="product-rating">
+                                <span class="stars">★★★★★</span>
+                                <span>${product.rating}</span>
+                            </div>
+                        </div>
+                        <button class="btn add-to-cart-btn" data-product-id="${product.id}">Add to Cart</button>
+                    </div>
+                `;
+                allProductsEl.appendChild(productEl);
+            });
+
+            // Add event listeners to the add to cart buttons
+            document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const productId = parseInt(e.currentTarget.getAttribute('data-product-id'));
+                    addToCart(productId);
+                });
+            });
+        }
+
+        // Load all FAQs
+        function loadAllFaqs() {
+            const allFaqListEl = document.getElementById('allFaqList');
+            if (!allFaqListEl) return;
+            
+            allFaqListEl.innerHTML = '';
+            
+            faqs.forEach((faq, index) => {
+                const faqEl = document.createElement('div');
+                faqEl.className = 'faq-item';
+                faqEl.dataset.faqId = faq.id;
+                faqEl.innerHTML = `
+                    <div class="faq-question">
+                        ${faq.question}
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">${faq.answer}</div>
+                    </div>
+                `;
+                allFaqListEl.appendChild(faqEl);
+
+                // Add event listener to toggle FAQ answers
+                const faqQuestionEl = faqEl.querySelector('.faq-question');
+                faqQuestionEl.addEventListener('click', () => {
+                    faqEl.classList.toggle('active');
+                });
+            });
+        }
+
+        // Show page function
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            const page = document.getElementById(`page-${pageId}`);
+            if (page) {
+                page.classList.add('active');
+                window.scrollTo(0, 0);
+            }
+            
+            // Update active nav link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-page') === pageId) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Load content based on page
+            if (pageId === 'products') {
+                loadAllProducts();
+            } else if (pageId === 'faq') {
+                loadAllFaqs();
+            }
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Cart icon click
+            cartIconEl.addEventListener('click', () => {
+                renderCart();
+                cartModalEl.classList.add('open');
+            });
+
+            // Close cart modal
+            closeCartModalEl.addEventListener('click', () => {
+                cartModalEl.classList.remove('open');
+            });
+
+            // Close modal when clicking outside
+            cartModalEl.addEventListener('click', (e) => {
+                if (e.target === cartModalEl) {
+                    cartModalEl.classList.remove('open');
+                }
+            });
+
+            // Toggle mobile menu
+            menuToggleEl.addEventListener('click', () => {
+                menuToggleEl.classList.toggle('active');
+                navLinksEl.classList.toggle('active');
+            });
+
+            // Navigation links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const pageId = link.getAttribute('data-page');
+                    showPage(pageId);
+                    
+                    // Close mobile menu
+                    menuToggleEl.classList.remove('active');
+                    navLinksEl.classList.remove('active');
+                });
+            });
+
+            // Footer navigation links
+            document.querySelectorAll('.footer-col a[data-page]').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const pageId = link.getAttribute('data-page');
+                    showPage(pageId);
+                });
+            });
+
+            // Explore products button
+            exploreBtnEl.addEventListener('click', () => {
+                showPage('products');
+            });
+        }
+    </script>
+</body>
+</html>
